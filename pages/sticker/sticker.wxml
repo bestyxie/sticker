@@ -1,0 +1,46 @@
+<view class="page">
+    <view class="operate_box" style="width: {{width}}rpx; height: {{height}}rpx;">
+        <image src="{{img}}" mode="aspectFit" style="width: {{width}}rpx; height: {{height}}rpx;" data-img="{{img}}" bindtap="fn_translate"></image>
+
+        <view class="sticker_box">
+            <view class="sticker"
+                  wx:for="{{selected_stick}}"
+                  wx:for-index="i"
+                  wx:for-item="img"
+                  wx:key="stick_{{i}}"
+                  animation="{{img.animationData}}">
+
+                <view class="iconfont icon-close"></view>
+
+                <view class="iconfont icon-arrowsalt"
+                      data-i="{{i}}"
+                      bindtouchstart="fn_touchstart"
+                      bindtouchmove="fn_touchmove"
+                      bindtouchend="fn_touchend"></view>
+
+                <image mode="aspectFit" src="{{img.url}}"
+                       data-i="{{i}}"
+                       bindtouchstart="fn_touchstart"
+                       bindtouchmove="fn_translate"></image>
+            </view>
+
+        </view>
+    </view>
+    <view class="sticker_store">
+        <view class="sticker_tool">
+            <view class="iconfont icon-close"></view>
+            <view class="iconfont icon-wancheng"></view>
+        </view>
+        <view class="sticker_list">
+            <image mode="aspectFit"
+                   wx:for="{{stickers}}"
+                   wx:for-index="i"
+                   wx:for-item="img"
+                   wx:key="{{i}}"
+                   src="{{img}}"
+                   data-img="{{img}}"
+                   bindtap="fn_select"
+                ></image>
+        </view>
+    </view>
+</view>

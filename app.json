@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/upload/upload",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/sticker/sticker"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  }
+}
