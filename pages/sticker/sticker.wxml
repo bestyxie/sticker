@@ -1,46 +1,55 @@
 <view class="page">
-    <view class="operate_box" style="width: {{width}}rpx; height: {{height}}rpx;">
-        <image src="{{img}}" mode="aspectFit" style="width: {{width}}rpx; height: {{height}}rpx;" data-img="{{img}}" bindtap="fn_translate"></image>
+    <view wx:if="{{!tempFile}}">
+        <view class="operate_box" style="width: {{width}}rpx; height: {{height}}rpx;">
+            <image src="{{img}}" mode="aspectFit" style="width: {{width}}rpx; height: {{height}}rpx;" data-img="{{img}}" bindtap="fn_translate"></image>
 
-        <view class="sticker_box">
-            <view class="sticker"
-                  wx:for="{{selected_stick}}"
-                  wx:for-index="i"
-                  wx:for-item="img"
-                  wx:key="stick_{{i}}"
-                  animation="{{img.animationData}}">
+            <view class="sticker_box">
+                <view wx:for="{{selected_stick}}"
+                      wx:for-index="i"
+                      wx:for-item="img"
+                      wx:key="stick_{{i}}"
+                      class="sticker {{img.focus?'focus':''}}"
+                      animation="{{img.animationData}}"
+                      style="top: {{img.y}}rpx; left: {{img.x}}rpx;">
 
-                <view class="iconfont icon-close"></view>
+                    <image mode="aspectFit" src="{{img.url}}"
+                           data-i="{{i}}"
+                           bindtouchstart="fn_touchstart"
+                           bindtouchmove="fn_translate"
+                           bindtouchend="fn_touchend"></image>
 
-                <view class="iconfont icon-arrowsalt"
-                      data-i="{{i}}"
-                      bindtouchstart="fn_touchstart"
-                      bindtouchmove="fn_touchmove"
-                      bindtouchend="fn_touchend"></view>
+                    <view class="iconfont icon-close" data-i="{{i}}" bindtap="fn_delete"></view>
 
-                <image mode="aspectFit" src="{{img.url}}"
-                       data-i="{{i}}"
-                       bindtouchstart="fn_touchstart"
-                       bindtouchmove="fn_translate"></image>
+                    <view class="iconfont icon-arrowsalt"
+                          data-i="{{i}}"
+                          bindtouchstart="fn_touchstart"
+                          bindtouchmove="fn_touchmove"
+                          bindtouchend="fn_touchend"
+                          bindtap="fn_focus"></view>
+                </view>
+
             </view>
+        </view>
+        <view class="sticker_store">
+            <view class="sticker_tool">
+                <view class="iconfont icon-close"></view>
+                <view class="iconfont icon-wancheng" bindtap="fn_confirm"></view>
+            </view>
+            <view class="sticker_list">
+                <image mode="aspectFit"
+                       wx:for="{{stickers}}"
+                       wx:for-index="i"
+                       wx:for-item="img"
+                       wx:key="{{i}}"
+                       src="{{img}}"
+                       data-img="{{img}}"
+                       bindtap="fn_select"
+                    ></image>
+            </view>
+        </view>
+    </view>
+    <view></view>
+    <image wx:if="{{tempFile}}" src="{{tempFile}}" mode="aspectFit" style="width: {{width}}rpx; height: {{height}}rpx;"></image>
 
-        </view>
-    </view>
-    <view class="sticker_store">
-        <view class="sticker_tool">
-            <view class="iconfont icon-close"></view>
-            <view class="iconfont icon-wancheng"></view>
-        </view>
-        <view class="sticker_list">
-            <image mode="aspectFit"
-                   wx:for="{{stickers}}"
-                   wx:for-index="i"
-                   wx:for-item="img"
-                   wx:key="{{i}}"
-                   src="{{img}}"
-                   data-img="{{img}}"
-                   bindtap="fn_select"
-                ></image>
-        </view>
-    </view>
+    <canvas canvas-id="{{canvasId}}" style="width: {{naturalW}}px; height: {{naturalH}}px;position:absolute; left: 100%;"></canvas>
 </view>

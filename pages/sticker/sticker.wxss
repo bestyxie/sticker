@@ -24,7 +24,7 @@
 .operate_box .sticker_box .sticker{
   width: 80rpx;
   height: 80rpx;
-  border: 1px solid #eee;
+  border: 1px solid transparent;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -41,12 +41,21 @@
   background: #000;
 }
 .operate_box .sticker_box .sticker .icon-close{
+  display: none;
   top: -20rpx;
   left: -20rpx;
 }
 .operate_box .sticker_box .sticker .icon-arrowsalt{
+  display: none;
   bottom: -20rpx;
   right: -20rpx;
+}
+.operate_box .sticker_box .sticker.focus{
+  border-color: #eee;
+}
+.operate_box .sticker_box .sticker.focus .icon-close,
+.operate_box .sticker_box .sticker.focus .icon-arrowsalt{
+  display: block;
 }
 
 .operate_box .sticker_box .sticker image{
