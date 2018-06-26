@@ -13,6 +13,7 @@
                       style="top: {{img.y}}rpx; left: {{img.x}}rpx;">
 
                     <image mode="aspectFit" src="{{img.url}}"
+                           style="width: {{img.width}}rpx;height: {{img.height}}rpx;"
                            data-i="{{i}}"
                            bindtouchstart="fn_touchstart"
                            bindtouchmove="fn_translate"
@@ -48,8 +49,10 @@
             </view>
         </view>
     </view>
-    <view></view>
-    <image wx:if="{{tempFile}}" src="{{tempFile}}" mode="aspectFit" style="width: {{width}}rpx; height: {{height}}rpx;"></image>
+    <view style="text-align: center;">
+        <image wx:if="{{tempFile}}" src="{{tempFile}}" mode="aspectFit" style="width: {{width}}rpx; height: {{height}}rpx;"></image>
+    </view>
+
 
     <canvas canvas-id="{{canvasId}}" style="width: {{naturalW}}px; height: {{naturalH}}px;position:absolute; left: 100%;"></canvas>
 </view>

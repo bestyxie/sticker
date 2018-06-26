@@ -134,7 +134,7 @@ Page({
     };
 
     var scale_msg = _this.getNewScale(imgobj.oldScale, imgobj.oldDistance, e.touches[0], touches1);
-    console.log(scale_msg.newScale);
+
     imgobj.scale = scale_msg.newScale > 2 ? 2 : (scale_msg.newScale<0.5? 0.5 : scale_msg.newScale);
     imgobj.distance = scale_msg.newDistance;
     imgobj.rotate = _this.getNewRotate(e.touches[0], {clientX: _this.data.touches0.x, clientY: _this.data.touches0.y}, imgobj.oldRotate, _this.data.defaultAngle);
@@ -222,8 +222,6 @@ Page({
         c_w = data.naturalW,
         c_h = data.naturalH,
         w, h, t_x, t_y, scale;
-    var scale_c_x = data.width*(1-base_scale)/ 2,
-        scale_c_y = data.height*(1-base_scale)/2;
 
     const ctx = wx.createCanvasContext(_this.data.canvasId);
 
@@ -238,12 +236,13 @@ Page({
 
       ctx.save();
       //ctx.scale(base_scale, base_scale);
-      ctx.translate(c_w/2+w/2+t_x*base_scale, c_h/2+data.sticker_h/data.pixelRatio/2+t_y*base_scale);
+      //ctx.translate(c_w/2+w*base_scale*scale/2+t_x*base_scale, c_h/2+data.sticker_h*base_scale*scale/data.pixelRatio/2+t_y*base_scale);
+      ctx.translate(c_w/2+w*base_scale*scale/2+t_x*_this.data.pixelRatio*base_scale, c_h/2+h*base_scale*scale/2+t_y*_this.data.pixelRatio*base_scale);
       ctx.rotate(list[i].rotate * Math.PI / 180);
 
-      ctx.rect(0, 0, data.naturalW, data.naturalH);
+      /*ctx.rect(0, 0, data.naturalW, data.naturalH);
       ctx.setFillStyle('red');
-      ctx.fill();
+      ctx.fill();*/
 
       ctx.drawImage(list[i].url, -w*base_scale*scale/2, -h*base_scale*scale/2, w*base_scale*scale, h*base_scale*scale);
       ctx.restore();
