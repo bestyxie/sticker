@@ -52,7 +52,6 @@ Page({
     wx.getImageInfo({
       src: e.target.dataset.img,
       success(res){
-        console.log(res);
         var scale = res.width/_this.data.sticker_w;
         list.push({
           url: e.target.dataset.img,
@@ -237,7 +236,7 @@ Page({
       ctx.save();
       //ctx.scale(base_scale, base_scale);
       //ctx.translate(c_w/2+w*base_scale*scale/2+t_x*base_scale, c_h/2+data.sticker_h*base_scale*scale/data.pixelRatio/2+t_y*base_scale);
-      ctx.translate(c_w/2+w*base_scale*scale/2+t_x*_this.data.pixelRatio*base_scale, c_h/2+h*base_scale*scale/2+t_y*_this.data.pixelRatio*base_scale);
+      ctx.translate(Math.round(c_w/2+w*base_scale/2+t_x*_this.data.pixelRatio*base_scale), Math.round(c_h/2+h*base_scale/2+t_y*_this.data.pixelRatio*base_scale));
       ctx.rotate(list[i].rotate * Math.PI / 180);
 
       /*ctx.rect(0, 0, data.naturalW, data.naturalH);
