@@ -22,6 +22,7 @@ Page({
     sticker_h: 80,
     canvasId: "canvas",
     tempFile: "",
+    saveSuccess: false,
 
     stickers: ["../../imgs/1.png", "../../imgs/2.png", "../../imgs/3.png", "../../imgs/4.png", "../../imgs/5.png", "../../imgs/6.png", "../../imgs/7.png"],
     selected_stick: [],
@@ -258,15 +259,20 @@ Page({
             tempFile: res.tempFilePath
           });
 
-          /*wx.saveImageToPhotosAlbum({
+          wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
             success: function (res) {
-              console.log(res)
+              wx.navigateTo({
+                url: "pages/upload/upload"
+              })
             },
             fail: function (res) {
-              console.log(res);
+              wx.showToast({
+                icon: "none",
+                title: "保存失败"
+              })
             }
-          })*/
+          })
         }
       })
     });
