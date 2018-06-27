@@ -220,13 +220,13 @@ Page({
     var data = _this.data,
         pixelRatio = data.pixelRatio,
         base_scale = data.scale,
-        c_w = data.naturalW*pixelRatio,
-        c_h = data.naturalH*pixelRatio,
-        w, h, t_x, t_y, scale;
+        c_w = data.naturalW,
+        c_h = data.naturalH,
+        w, h, t_x, t_y, scale, c_t_x, c_t_y;
 
     const ctx = wx.createCanvasContext(_this.data.canvasId);
 
-    ctx.drawImage( data.img, 0,0, c_w, c_h);
+    ctx.drawImage( data.img, 0,0, c_w*pixelRatio, c_h*pixelRatio);
 
     for(var i=0, len = list.length; i< len; i++){
       w = list[i].width;
@@ -234,12 +234,14 @@ Page({
       t_x = list[i].translateX;
       t_y = list[i].translateY;
       scale = list[i].scale;
+      
+      c_t_x = Math.round(c_w/2+w*base_scale/2+t_x*pixelRatio*base_scale+base_scale*scale)*pixelRatio;
+      c_t_y = Math.round(c_h/2+h*base_scale/2+t_y*pixelRatio*base_scale+base_scale*scale)*pixelRatio;
 
       ctx.save();
       //ctx.scale(base_scale, base_scale);
       //ctx.translate(c_w/2+w*base_scale*scale/2+t_x*base_scale, c_h/2+data.sticker_h*base_scale*scale/data.pixelRatio/2+t_y*base_scale);
-      ctx.translate(Math.round(c_w/2+w*pixelRatio*base_scale/2+t_x*_this.data.pixelRatio*pixelRatio*base_scale),
-          Math.round(c_h/2+h*pixelRatio*base_scale/2+t_y*_this.data.pixelRatio*pixelRatio*base_scale));
+      ctx.translate(c_t_x, c_t_y);
       ctx.rotate(list[i].rotate * Math.PI / 180);
 
       /*ctx.rect(0, 0, data.naturalW, data.naturalH);
@@ -264,9 +266,9 @@ Page({
           wx.saveImageToPhotosAlbum({
             filePath: res.tempFilePath,
             success: function (res) {
-              wx.navigateTo({
+              /*wx.navigateTo({
                 url: "/pages/upload/upload"
-              })
+              })*/
             },
             fail: function (res) {
               wx.showToast({

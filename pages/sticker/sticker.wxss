@@ -21,6 +21,12 @@
   top: 0;
   left: 0;
 }
+/*.operate_box .sticker_box .operate_tools{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #eee;
+}*/
 .operate_box .sticker_box .sticker{
   width: 80rpx;
   height: 80rpx;

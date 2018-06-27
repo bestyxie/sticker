@@ -10,7 +10,7 @@
                       wx:key="stick_{{i}}"
                       class="sticker {{img.focus?'focus':''}}"
                       animation="{{img.animationData}}"
-                      style="top: {{img.y}}rpx; left: {{img.x}}rpx;">
+                      style="top: {{img.y}}rpx; left: {{img.x}}rpx;width: {{img.width}}rpx;height: {{img.height}}rpx;">
 
                     <image mode="aspectFit" src="{{img.url}}"
                            style="width: {{img.width}}rpx;height: {{img.height}}rpx;"
