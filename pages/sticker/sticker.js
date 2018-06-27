@@ -218,9 +218,10 @@ Page({
     var _this = this;
     var list = _this.data.selected_stick;
     var data = _this.data,
+        pixelRatio = data.pixelRatio,
         base_scale = data.scale,
-        c_w = data.naturalW,
-        c_h = data.naturalH,
+        c_w = data.naturalW*pixelRatio,
+        c_h = data.naturalH*pixelRatio,
         w, h, t_x, t_y, scale;
 
     const ctx = wx.createCanvasContext(_this.data.canvasId);
@@ -237,14 +238,15 @@ Page({
       ctx.save();
       //ctx.scale(base_scale, base_scale);
       //ctx.translate(c_w/2+w*base_scale*scale/2+t_x*base_scale, c_h/2+data.sticker_h*base_scale*scale/data.pixelRatio/2+t_y*base_scale);
-      ctx.translate(Math.round(c_w/2+w*base_scale/2+t_x*_this.data.pixelRatio*base_scale), Math.round(c_h/2+h*base_scale/2+t_y*_this.data.pixelRatio*base_scale));
+      ctx.translate(Math.round(c_w/2+w*pixelRatio*base_scale/2+t_x*_this.data.pixelRatio*pixelRatio*base_scale),
+          Math.round(c_h/2+h*pixelRatio*base_scale/2+t_y*_this.data.pixelRatio*pixelRatio*base_scale));
       ctx.rotate(list[i].rotate * Math.PI / 180);
 
       /*ctx.rect(0, 0, data.naturalW, data.naturalH);
       ctx.setFillStyle('red');
       ctx.fill();*/
 
-      ctx.drawImage(list[i].url, -w*base_scale*scale/2, -h*base_scale*scale/2, w*base_scale*scale, h*base_scale*scale);
+      ctx.drawImage(list[i].url, -w*pixelRatio*base_scale*scale/2, -h*pixelRatio*base_scale*scale/2, w*pixelRatio*base_scale*scale, h*pixelRatio*base_scale*scale);
       ctx.restore();
     }
 
@@ -263,7 +265,7 @@ Page({
             filePath: res.tempFilePath,
             success: function (res) {
               wx.navigateTo({
-                url: "pages/upload/upload"
+                url: "/pages/upload/upload"
               })
             },
             fail: function (res) {
@@ -296,6 +298,10 @@ Page({
   },
   /**
    * 获取旋转值
+   * @param touch0 {Object} 第一根手指的坐标
+   * @param touch1 {Object} 第二根手指的坐标
+   * @param oldAngle {Number}
+   * @param defaultAngle {Number} 两指的线段与x轴之间形成的角度
    * */
   getNewRotate(touch0, touch1, oldAngle, defaultAngle){
     var _this = this;
@@ -305,8 +311,13 @@ Page({
 
     return newAngle;
   },
+  /**
+   * @param px {Number} 第二个点的x坐标
+   * @param py {Number} 第二个点的y坐标
+   * @param mx {Number} 第一个点的x坐标
+   * @param my {Number} 第一个点的y坐标
+   * */
   getAngle(px, py, mx, my){
-
     var angle = 0;
 
     if(mx == px && my > py){ /*-y轴*/

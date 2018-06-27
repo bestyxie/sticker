@@ -54,5 +54,5 @@
     </view>-->
 
 
-    <canvas canvas-id="{{canvasId}}" style="width: {{naturalW}}px; height: {{naturalH}}px;position:absolute; left: 100%;"></canvas>
+    <canvas canvas-id="{{canvasId}}" style="width: {{naturalW*pixelRatio}}px; height: {{naturalH*pixelRatio}}px;position:absolute; left: 100%;"></canvas>
 </view>
