@@ -13,7 +13,7 @@ Page({
     naturalW: 0,
     naturalH: 0,
     scale: 1,
-    pixelRatio: app.globalData.device.pixelRatio || 1,
+    pixelRatio: 2, //app.globalData.device.pixelRatio ||
     maxHeight: 400,
     maxWidth: 0,
     start_time: 0,
@@ -54,6 +54,7 @@ Page({
       src: e.target.dataset.img,
       success(res){
         var scale = res.width/_this.data.sticker_w;
+        console.log(scale);
         list.push({
           url: e.target.dataset.img,
           rotate: 0,
@@ -234,7 +235,7 @@ Page({
       t_x = list[i].translateX;
       t_y = list[i].translateY;
       scale = list[i].scale;
-      
+
       c_t_x = Math.round(c_w/2+w*base_scale/2+t_x*pixelRatio*base_scale+base_scale*scale)*pixelRatio;
       c_t_y = Math.round(c_h/2+h*base_scale/2+t_y*pixelRatio*base_scale+base_scale*scale)*pixelRatio;
 
@@ -360,14 +361,16 @@ Page({
   onLoad: function (option) {
     var _this = this;
 
-    var width = option.w,
-        height = option.h,
+    var width = parseInt(option.w),
+        height = parseInt(option.h),
         maxWidth = app.globalData.device.windowWidth * _this.data.pixelRatio,
         maxHeight = _this.data.maxHeight * _this.data.pixelRatio;
 
-
     var scale = width/maxWidth;
 
+    //console.log(_this.data.pixelRatio, maxWidth, width, height/scale > maxHeight);
+
+    console.log(app.globalData.device);
     if(height/scale > maxHeight) {
       width = width * maxHeight/height;
       height = maxHeight;
